@@ -1,23 +1,23 @@
- Project Description
+ The portfolio website includes the following sections:
 
-The website includes:
+Header Section – Name and professional title
 
-Header section (Name and Title)
+About Section – Brief introduction about me
 
-About section
+Skills Section – List of technical skills
 
-Skills section
+Projects Section – At least two sample projects
 
-Projects section (at least 2 projects)
+Contact Section – Email/contact information
 
-Contact section
+Footer – Copyright information
 
-Footer
+This project is fully responsive and built using an external CSS file.
 
-The design is responsive and uses an external CSS file.
+🛠️ Technologies Used
 
-Technologies Used
+HTML5
 
-HTML
+CSS3
 
-CSS
+Responsive Design (Media Queries
