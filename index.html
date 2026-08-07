@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NINSANAGOUDA  — Full Stack Developer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:        #0F172A;
+    --bg-alt:    #131B31;
+    --panel:     #172038;
+    --line:      #26314F;
+    --text:      #F1F5F9;
+    --muted:     #8B96AE;
+    --accent:    #2DD4BF;
+    --accent-2:  #FBBF24;
+  }
+
+  ::selection{ background:var(--accent); color:#0F172A; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.65;
+  }
+
+  h1, h2, h3, .display-font{
+    font-family:'Space Grotesk', sans-serif;
+  }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a{ color:var(--accent); text-decoration:none; }
+  a:hover{ color:var(--accent-2); }
+
+  /* ---------- Nav ---------- */
+  .navbar{
+    background:rgba(15,23,42,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar-brand{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:600;
+    color:var(--text) !important;
+    letter-spacing:-0.5px;
+  }
+  .navbar-brand .bracket{ color:var(--accent); }
+  .nav-link{
+    color:var(--muted) !important;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.9rem;
+    margin-left:0.5rem;
+  }
+  .nav-link:hover{ color:var(--accent) !important; }
+
+  /* ---------- Hero / terminal ---------- */
+  .hero{
+    padding:7rem 0 5rem;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(ellipse at top right, rgba(45,212,191,0.08), transparent 60%),
+      var(--bg);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--accent);
+    font-size:0.85rem;
+    letter-spacing:0.06em;
+  }
+  .eyebrow::before{ content:"// "; color:var(--muted); }
+
+  .hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    font-weight:700;
+    line-height:1.1;
+    margin:0.6rem 0 1rem;
+  }
+  .hero .lead{
+    color:var(--muted);
+    font-size:1.1rem;
+    max-width:34rem;
+  }
+
+  .btn-accent{
+    background:var(--accent);
+    color:#0F172A;
+    font-weight:600;
+    border:none;
+    padding:0.65rem 1.4rem;
+  }
+  .btn-accent:hover{ background:#5eead4; color:#0F172A; }
+  .btn-outline-mono{
+    border:1px solid var(--line);
+    color:var(--text);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.9rem;
+    padding:0.6rem 1.3rem;
+  }
+  .btn-outline-mono:hover{ border-color:var(--accent); color:var(--accent); }
+
+  /* terminal card */
+  .terminal{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+    overflow:hidden;
+  }
+  .terminal-bar{
+    background:#0D1526;
+    padding:0.6rem 1rem;
+    display:flex;
+    align-items:center;
+    gap:0.4rem;
+    border-bottom:1px solid var(--line);
+  }
+  .dot{ width:11px; height:11px; border-radius:50%; }
+  .dot.red{ background:#ef4444; }
+  .dot.yellow{ background:#f59e0b; }
+  .dot.green{ background:#22c55e; }
+  .terminal-title{
+    margin-left:auto; margin-right:auto;
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    font-size:0.78rem;
+  }
+  .terminal-body{
+    padding:1.4rem 1.5rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.92rem;
+    min-height:280px;
+  }
+  .tk-key{ color:#93c5fd; }
+  .tk-str{ color:#fbbf24; }
+  .tk-punc{ color:var(--muted); }
+  .tk-const{ color:#c4b5fd; }
+  .cursor{
+    display:inline-block; width:8px; height:1.1em;
+    background:var(--accent); vertical-align:text-bottom;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------- Section shells ---------- */
+  section{ padding:5rem 0; }
+  .section-alt{ background:var(--bg-alt); }
+  .section-head{ margin-bottom:2.8rem; }
+  .section-head .eyebrow{ display:block; margin-bottom:0.4rem; }
+  .section-head h2{ font-size:2rem; font-weight:700; }
+
+  /* ---------- About ---------- */
+  .stat-box{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:1.2rem 1rem;
+    background:var(--panel);
+    text-align:center;
+  }
+  .stat-box .num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.8rem; font-weight:700; color:var(--accent);
+  }
+  .stat-box .lbl{ color:var(--muted); font-size:0.82rem; }
+
+  /* ---------- Skills ---------- */
+  .skill-pill{
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--text);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    padding:0.45rem 0.9rem;
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+  }
+  .skill-pill .tag{ color:var(--accent); }
+
+  /* ---------- Projects ---------- */
+  .proj-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:1.8rem;
+    height:100%;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .proj-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--accent);
+  }
+  .proj-index{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--accent);
+    font-size:0.8rem;
+  }
+  .proj-card h3{
+    font-size:1.25rem; font-weight:600; margin:0.4rem 0 0.7rem;
+  }
+  .proj-card p{ color:var(--muted); font-size:0.94rem; }
+  .stack-row{ margin:1rem 0 1.2rem; display:flex; flex-wrap:wrap; gap:0.4rem; }
+  .stack-chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:0.2rem 0.55rem;
+    border-radius:5px;
+  }
+  .proj-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    margin-right:1.2rem;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:2.5rem;
+  }
+  .contact-row{
+    display:flex; align-items:center; gap:0.8rem;
+    padding:0.7rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .contact-row:last-child{ border-bottom:none; }
+  .contact-row .k{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--accent);
+    width:110px;
+    flex-shrink:0;
+    font-size:0.85rem;
+  }
+  .contact-row .v{ color:var(--text); }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:1.6rem 0;
+    color:var(--muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.82rem;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .cursor{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-md fixed-top py-3">
+  <div class="container">
+    <a class="navbar-brand" href="#top"><span class="bracket">&lt;</span>Aditya.dev<span class="bracket">/&gt;</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="border-color:var(--line);">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <a class="nav-link" href="#about">about</a>
+      <a class="nav-link" href="#skills">skills</a>
+      <a class="nav-link" href="#projects">projects</a>
+      <a class="nav-link" href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="eyebrow">final-year BCA · class of 2027</span>
+        <h1>NINGANAGOUDA <br>builds full&#8209;stack web apps.</h1>
+        <p class="lead">
+          I'm a Bachelor of Computer Applications student graduating in 2027,
+          focused on building clean, functional web applications end to end —
+          from database schema to pixel-perfect UI. Looking for a Full Stack
+          Developer role where I can ship real products.
+        </p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a href="#projects" class="btn btn-accent">View Projects</a>
+          <a href="#contact" class="btn btn-outline-mono">Get In Touch</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="terminal-title">whoami.js</span>
+          </div>
+          <div class="terminal-body">
+<span class="tk-key">const</span> <span class="tk-const">developer</span> <span class="tk-punc">=</span> {<br>
+&nbsp;&nbsp;name: <span class="tk-str">"Aditya Rao"</span>,<br>
+&nbsp;&nbsp;education: <span class="tk-str">"BCA, 2027"</span>,<br>
+&nbsp;&nbsp;role: <span class="tk-str">"Full Stack Developer"</span>,<br>
+&nbsp;&nbsp;stack: [<span class="tk-str">"React"</span>, <span class="tk-str">"Node.js"</span>, <span class="tk-str">"MongoDB"</span>, <span class="tk-str">"SQL"</span>],<br>
+&nbsp;&nbsp;status: <span class="tk-str">"open to opportunities"</span><br>
+};<span class="cursor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-6">
+        <div class="section-head">
+          <span class="eyebrow">about me</span>
+          <h2>From coursework to shipped code.</h2>
+        </div>
+        <p style="color:var(--muted)">
+          I'm a final-year Bachelor of Computer Applications student, graduating in 2027.
+          Over the last three years I've moved from classroom fundamentals — data
+          structures, DBMS, and OOP — into building complete web applications on my own,
+          covering the frontend, backend, and database layers. I like turning a rough
+          idea into a working app: designing the schema, wiring the API, and polishing
+          the interface until it feels right.
+        </p>
+        <p style="color:var(--muted)">
+          I'm currently looking for a Full Stack Developer role (internship or
+          entry-level) where I can keep learning from experienced engineers while
+          contributing real, shippable work.
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="stat-box"><div class="num">4+</div><div class="lbl">projects built</div></div>
+          </div>
+          <div class="col-6">
+            <div class="stat-box"><div class="num">3</div><div class="lbl">years coding</div></div>
+          </div>
+          <div class="col-6">
+            <div class="stat-box"><div class="num">2027</div><div class="lbl">graduating</div></div>
+          </div>
+          <div class="col-6">
+            <div class="stat-box"><div class="num">MERN</div><div class="lbl">core stack</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">tech stack</span>
+      <h2>Tools I build with.</h2>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <span class="skill-pill"><span class="tag">&lt;/&gt;</span>HTML5</span>
+      <span class="skill-pill"><span class="tag">&lt;/&gt;</span>CSS3 / Bootstrap</span>
+      <span class="skill-pill"><span class="tag">&lt;/&gt;</span>JavaScript (ES6+)</span>
+      <span class="skill-pill"><span class="tag">&#123;&#125;</span>React.js</span>
+      <span class="skill-pill"><span class="tag">&#123;&#125;</span>Node.js / Express</span>
+      <span class="skill-pill"><span class="tag">DB</span>MongoDB</span>
+      <span class="skill-pill"><span class="tag">DB</span>MySQL</span>
+      <span class="skill-pill"><span class="tag">git</span>Git &amp; GitHub</span>
+      <span class="skill-pill"><span class="tag">λ</span>Python</span>
+      <span class="skill-pill"><span class="tag">☕</span>Java</span>
+      <span class="skill-pill"><span class="tag">$</span>REST APIs</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">selected work</span>
+      <h2>4 projects I've shipped.</h2>
+    </div>
+    <div class="row g-4">
+
+      <!-- Project 1 -->
+      <div class="col-md-6">
+        <div class="proj-card">
+          <span class="proj-index">01</span>
+          <h3>Hotel mangement </h3>
+          <p>
+            A full-featured online store with product listings, cart, user
+            authentication, and an order management flow. Built as a solo
+            project to practice end-to-end full-stack architecture.
+          </p>
+          <div class="stack-row">
+            <span class="stack-chip">React</span>
+            <span class="stack-chip">Node.js</span>
+            <span class="stack-chip">Express</span>
+            <span class="stack-chip">MongoDB</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/ningu-sg/hotel_mangement.git" target="_blank">GitHub Repo →</a>
+            <a href="https://hotel-mangement-5fcj.onrender.com" target="_blank">Live Demo →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="col-md-6">
+        <div class="proj-card">
+          <span class="proj-index">02</span>
+          <h3>TaskFlow —  karnataka traval</h3>
+          <p>
+            Karnataka offers a diverse travel experience featuring royal heritage, misty hill stations, ancient temples, and tranquil beaches. Key destinations include the majestic Mysuru Palace, the ancient ruins of Hampi, and the lush coffee plantations of Coorg.
+          </p>
+          <div class="stack-row">
+            <span class="stack-chip">React</span>
+            <span class="stack-chip">Redux</span>
+            <span class="stack-chip">Node.js</span>
+            <span class="stack-chip">MySQL</span>
+          </div>
+          <div class="proj-links">
+            <a href=" https://github.com/ningu-sg/karnataka-travel.git" target="_blank">GitHub Repo →</a>
+            <a href=" https://karnataka-travel-2.onrender.com" target="_blank">Live Demo →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="col-md-6">
+        <div class="proj-card">
+          <span class="proj-index">03</span>
+          <h3>ChatSphere — wether app</h3>
+          <p>
+            A real-time messaging app with private and group chat rooms,
+            typing indicators, and online-status tracking using WebSockets.
+          </p>
+          <div class="stack-row">
+            <span class="stack-chip">Socket.io</span>
+            <span class="stack-chip">Node.js</span>
+            <span class="stack-chip">Express</span>
+            <span class="stack-chip">MongoDB</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/adityarao/chatsphere" target="_blank">GitHub Repo →</a>
+            <a href="https://weather-check-3.onrender.com" target="_blank">Live Demo →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="col-md-6">
+        <div class="proj-card">
+          <span class="proj-index">04</span>
+          <h3>ONLINE learning</h3>
+          <p>
+            A blogging platform for students to publish articles, comment,
+            and follow topics, with a custom admin panel for moderation and
+            analytics.
+          </p>
+          <div class="stack-row">
+            <span class="stack-chip">HTML/CSS</span>
+            <span class="stack-chip">Bootstrap</span>
+            <span class="stack-chip">PHP</span>
+            <span class="stack-chip">MySQL</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/adityarao/campusblog" target="_blank">GitHub Repo →</a>
+            <a href="https://online-learning-ritm.onrender.com" target="_blank">Live Demo →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-alt">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="section-head text-center">
+          <span class="eyebrow">get in touch</span>
+          <h2>Let's build something together.</h2>
+        </div>
+        <div class="contact-car d">
+          <div class="contact-row">
+            <span class="k">email</span>
+            <span class="v"><a href="mailto:ningu.rao.dev@gmail.com">aditya.rao.dev@gmail.com</a></span>
+          </div>
+          <div class="contact-row">
+            <span class="k">phone</span>
+            <span class="v">+91 98765 43210</span>
+          </div>
+          <div class="contact-row">
+            <span class="k">location</span>
+            <span class="v">Hubballi, Karnataka, India</span>
+          </div>
+          <div class="contact-row">
+            <span class="k">github</span>
+            <span class="v"><a href=" " target="_blank">github.com/ningu</a></span>
+          </div>
+          <div class="contact-row">
+            <span class="k">linkedin</span>
+            <span class="v"><a href="https://linkedin.com/in/ninganagouda" target="_blank">linkedin.com/in/ninganagouda</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container d-flex justify-content-between flex-wrap gap-2">
+    <span>&copy; 2026 Aditya Rao — built with HTML &amp; Bootstrap</span>
+    <span>status: <span style="color:var(--accent)">open to work</span></span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
